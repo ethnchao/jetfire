@@ -3,7 +3,7 @@
 {% block body %}
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-8">
 {% with messages = get_flashed_messages() %}
     {% if messages %}
         {% for message in messages %}
@@ -22,7 +22,7 @@
           <a class="btn btn-info btn-small" href="{{url_for('addgroup')}}"><i
           class="glyphicon glyphicon-plus"></i></a>
           <a class="btn btn-default btn-small"
-          href="{{url_for('getallgroups')}}"><i class="glyphicon glyphicon-circle-arrow-down"></i></a>
+          href="{{url_for('getallgroups')}}"><i class="glyphicon glyphicon-refresh"></i></a>
         </div><!-- end btn group -->
         </form>
       </div>
@@ -92,7 +92,7 @@
 </div><!-- end row -->
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-8">
     {% block action %}
 
     {% endblock %}

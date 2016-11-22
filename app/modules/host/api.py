@@ -1,4 +1,4 @@
-from flask.ext.restful import reqparse, abort, Resource, Api
+from flask_restful import reqparse, abort, Resource, Api
 from flask import json
 import yaml
 from app import common
@@ -111,3 +111,26 @@ class GetHostsSearchAPI(Resource):
             data = {"hosts": ""}
 
         return data
+
+class ListAPI(Resource):
+    def get(self):
+        result = {}
+        allHosts = [host for host in common.getAllHosts()]
+        result["all"] = allHosts
+        allGroups = common.getAllGroups()
+        for item1 in allGroups:
+            items = common.db.groups.find({"groupname": item1}, {"_id": 0})
+            for item in items:
+                groupname = str(item["groupname"])
+                groupitems = common.db.groups.find({"groupname": groupname}, {"_id": 0, "groupname": 0})
+                for var in groupitems:
+                    result[groupname] = var
+        return result
+
+class HostDetailAPI(Resource):
+    def get(self, hostname):
+        result = {}
+        vars = common.db.hosts.find({"hostname": hostname}, {"_id": 0, "hostname": 0})
+        for item in vars:
+            result = item["vars"]
+        return result

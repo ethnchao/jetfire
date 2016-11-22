@@ -18,6 +18,7 @@
 import os
 import pymongo
 from app import app
+import json
 
 SECRET_KEY = os.getenv("SECRET_KEY", app.config['SECRET_KEY'])
 
@@ -25,9 +26,12 @@ SECRET_KEY = os.getenv("SECRET_KEY", app.config['SECRET_KEY'])
 dbserver = os.getenv("MONGOSRV", app.config['MONGOSRV'])
 database = os.getenv("DATABASE", app.config['DATABASE'])
 dbserverport = os.getenv("MONGOPORT", app.config['MONGOPORT'])
+dbusername = os.getenv("MONGO_USERNAME", app.config['MONGO_USERNAME'])
+dbpassword = os.getenv("MONGO_PASSWORD", app.config['MONGO_PASSWORD'])
 
-conn = pymongo.Connection(dbserver, dbserverport)
+conn = pymongo.MongoClient(dbserver, dbserverport)
 db = conn[database]
+db.authenticate(dbusername, dbpassword)
 db.groups.ensure_index('groupname')
 
 def hostExists(hostname):
@@ -91,4 +95,3 @@ def getGroupInfo(groupname):
 
 def getSearchGroups(search_term):
     return db.groups.find({'groupname' : {'$regex' : search_term}})
-

@@ -3,7 +3,7 @@
 {% block body %}
 
 <div class="row">
-<div class="col-md-6">
+<div class="col-md-8">
 
 {# message box #}
     {% with messages = get_flashed_messages() %}
@@ -22,7 +22,7 @@
           <button class="btn btn-info btn-small" type="submit"><i class="glyphicon glyphicon-search"></i></button>
           <div class="btn-group pull-right">
             <a class="btn btn-info btn-small" href="{{url_for('addhost')}}"><i class="glyphicon glyphicon-plus"></i></a>
-            <a class="btn btn-default btn-small" href="{{url_for('getallhosts')}}"><i class="glyphicon glyphicon-circle-arrow-down"></i></a>
+            <a class="btn btn-default btn-small" href="{{url_for('getallhosts')}}"><i class="glyphicon glyphicon-refresh"></i></a>
           </div>
           </form>
         </div>
@@ -94,7 +94,7 @@
 {% endif %}
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-8">
     {% block action %}
 
     {% endblock %}

@@ -19,7 +19,7 @@
 import flask
 import flask.views
 from app import common, app
-from flask.ext.paginate import Pagination
+from flask_paginate import Pagination
 from flask import request
 
 

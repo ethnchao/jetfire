@@ -75,7 +75,7 @@ class EditHostSubmit(flask.views.MethodView):
         hostname = str(flask.request.form['p_get2'])
         self.update_host(hostname)
         self.update_groups(hostname)
-        return flask.redirect('gethostinfo')
+        return flask.redirect('getallhosts')
 
     def update_host(self,hostname):
             yamlvars = flask.request.form['ehyaml']

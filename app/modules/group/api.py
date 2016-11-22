@@ -1,4 +1,4 @@
-from flask.ext.restful import reqparse, abort, Resource, Api
+from flask_restful import reqparse, abort, Resource, Api
 from flask import json
 import yaml
 from app import common

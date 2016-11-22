@@ -21,10 +21,10 @@ import flask.views
 app = flask.Flask('app')
 app.config.from_pyfile('../config.cfg')
 
-from flask.ext.restful import Resource, Api
+from flask_restful import Resource, Api
 api = Api(app)
 
-from app.modules.host.api import GetHostVarsAPI, HostsAPI, GetHostsSearchAPI, GetHostGroupsAPI
+from app.modules.host.api import GetHostVarsAPI, HostsAPI, GetHostsSearchAPI, GetHostGroupsAPI, ListAPI, HostDetailAPI
 from app.modules.group.api import GroupsAPI, GetGroupsSearchAPI, GetGroupVarsAPI, GetGroupChildrenAPI, GetGroupHostsAPI
 from app.modules.host.add_host import AddHost
 from app.modules.host.get_host import GetHost, GetAllHosts
@@ -52,6 +52,8 @@ api.add_resource(GetGroupVarsAPI, '/api/v1.0/groups/<string:groupname>/vars')
 api.add_resource(GetGroupHostsAPI, '/api/v1.0/groups/<string:groupname>/hosts')
 api.add_resource(GetGroupsSearchAPI, '/api/v1.0/groups/search/<string:search_term>')
 api.add_resource(GroupsAPI, '/api/v1.0/groups')
+api.add_resource(ListAPI, '/api/v1.0/lists')
+api.add_resource(HostDetailAPI, '/api/v1.0/hostdetail/<string:hostname>')
 
 app.add_url_rule('/',
                 view_func=Main.as_view('index'),
@@ -100,4 +102,3 @@ app.add_url_rule('/addgroups',
 app.add_url_rule('/remove',
                 view_func=Remove.as_view('remove'),
                 methods=['GET', 'POST'])
-
