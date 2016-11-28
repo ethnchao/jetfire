@@ -124,6 +124,8 @@ class ListAPI(Resource):
                 groupname = str(item["groupname"])
                 groupitems = common.db.groups.find({"groupname": groupname}, {"_id": 0, "groupname": 0})
                 for var in groupitems:
+                    if not var['vars']:
+                        var['vars'] = {}
                     result[groupname] = var
         return result
 

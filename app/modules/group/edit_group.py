@@ -128,9 +128,13 @@ class EditGroupSubmit(flask.views.MethodView):
         else:
             if len(updated_hosts) > 0:
                 add_hosts = [x for x in updated_hosts]
+            else:
+                add_hosts = []
 
             if current_hosts:
                 rem_hosts = [x for x in current_hosts]
+            else:
+                rem_hosts = []
 
         if add_hosts:
             for item in add_hosts:
