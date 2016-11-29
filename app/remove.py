@@ -46,10 +46,10 @@ class Remove(flask.views.MethodView):
                 self.group(item)
         elif grpdelbtnvalue:
             self.group(grpdelbtnvalue)
-            return flask.redirect('getgroup')
+            return flask.redirect('getallgroups')
         elif hostdelbtnvalue:
             self.host(hostdelbtnvalue)
-            return flask.redirect('gethostinfo')
+            return flask.redirect('getallhosts')
 
         return flask.redirect('remove')
 

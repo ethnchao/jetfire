@@ -1,41 +1,21 @@
 #!/usr/bin/python
-import pymongo
-import json
 import sys
-
-# mongod connection
-conn = pymongo.Connection('192.168.122.240', 27017)
-db = conn['ansible']
-
+import urllib
 
 # ------------------------------------------------------------------
 # get all groups and their values
 def getlist():
-    inv = {}
-    db.groups.ensure_index('groupname')
-    grouplist = db.groups.find().distinct("groupname")
-    # populate "all" group
-    allhosts = [host for host in db.hosts.find().distinct("hostname")]
-    inv["all"] = allhosts
-    for item in grouplist:
-        items = db.groups.find({"groupname": item}, {"_id": 0})
-        for item in items:
-            #groups = [ item["groupname"] for item in result]
-            groupname = str(item["groupname"])
-            groupitems = db.groups.find({"groupname": groupname}, {"_id": 0, "groupname": 0})
-            for var in groupitems:
-                inv[groupname] = var
-    print json.dumps(inv, sort_keys=True, indent=2)
+    try:
+        result = urllib.urlopen('http://192.168.120.234:5000/api/v1.0/lists')
+        print result.read()
+    except Exception as e:
+        raise e
 
 # ------------------------------------------------------------------
 # get host variables
 def getdetails(host):
-    varlist = {}
-    vars = db.hosts.find({"hostname": host}, {"_id": 0, "hostname": 0})
-    for item in vars:
-        #varlist[host] = item["vars"]
-        varlist = item["vars"]
-    print json.dumps(varlist, sort_keys=True, indent=2)
+    result = urllib.urlopen('http://192.168.120.234:5000/api/v1.0/hostdetail/' + host)
+    print result.read()
 
 # ------------------------------------------------------------------
 # command line options
